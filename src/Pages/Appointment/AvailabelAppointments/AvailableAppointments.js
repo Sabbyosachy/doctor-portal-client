@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Bookings from '../Bookings/Bookings';
+import { Alert } from '@mui/material';
 
 
 const bookings = [
@@ -45,13 +46,15 @@ const bookings = [
 
 
 const AvailableAppointments = ({date}) => {
+    const[booksucc,setBooksucc]=useState(false)
     return (
         <container>
             <h2 style={{color:'#5CE7ED'}}>Availabel Appointments:{date.toDateString()}</h2>
             <Box sx={{ flexGrow: 1 }}>
+            {booksucc &&  <Alert severity="success">Appointment Booking Successfully!</Alert>}
       <Grid container spacing={2}>
        {
-           bookings.map(booking=><Bookings key={booking.id} booking={booking} date={date}></Bookings>)
+           bookings.map(booking=><Bookings key={booking.id} booking={booking} date={date} setBooksucc={setBooksucc}></Bookings>)
        }
       </Grid>
     </Box>
