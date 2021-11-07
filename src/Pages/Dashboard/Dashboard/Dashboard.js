@@ -15,17 +15,20 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Calender from '../../Shared/Calender/Calender';
-import { Link} from 'react-router-dom';
-import Appointments from '../Appointments/Appointments';
+import {BrowserRouter as Router,Switch, Route,Link,useParams,useRouteMatch} from "react-router-dom";
+import { Button } from '@mui/material';
+import DashboardHome from '../DashboardHome/DashboardHome';
+import AdminPanale from '../AdminPanale/AdminPanale';
+import AddDoctor from '../AddDoctor/AddDoctor';
+
+
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const[date,setDate]=React.useState(new Date());
+  let { path, url } = useRouteMatch();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -36,6 +39,12 @@ function Dashboard(props) {
       <Toolbar />
       <Divider />
       <Link to='/appointment'>Appointment</Link>
+      <br/>
+      <Link to={`${url}`}>Dashboard</Link>
+      <br/>
+      <Link to={`${url}/adminpanale`}>Admin Panale</Link>
+      <br/>
+      <Link to={`${url}/adddoctore`}>Add Doctor</Link>
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
@@ -114,20 +123,21 @@ function Dashboard(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <Typography paragraph>
-        <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
-         <Calender date={date} setDate={setDate}></Calender>
-        </Grid>
-        <Grid item xs={12} md={7}>
-         <Appointments date={date}></Appointments>
-        </Grid>
-      </Grid>
+       
+        <Switch>
+        <Route exact path={path}>
+          <DashboardHome></DashboardHome>
+        </Route>
+        <Route path={`${path}/adminpanale`}>
+        <AdminPanale></AdminPanale>
+        </Route>
+        <Route path={`${path}/adddoctore`}>
+          <AddDoctor></AddDoctor>
+        </Route>
+      </Switch>
     </Box>
-        </Typography>
+      
       </Box>
-    </Box>
   );
 }
 
