@@ -1,8 +1,11 @@
-import { Button, TextField } from '@mui/material';
+import { Alert, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import useAuth from '../../../hooks/useAuth';
 
 const AdminPanale = () => {
     const [email,setEmail]=useState('');
+    const[success,setSuccess]=useState(false);
+    const {token}=useAuth();
 
     const handleOnBlur=e=>{
         setEmail(e.target.value);
@@ -12,13 +15,18 @@ const AdminPanale = () => {
         fetch('http://localhost:5000/users/admin',{
             method:'PUT',
             headers:{
+                'authorization': `Bearer ${token}`,
                 'content-type':'application/json'
             },
             body:JSON.stringify(user)
         })
         .then(res=>res.json())
         .then(data=>{
-            console.log(data)
+            if(data.modifiedCount){
+                console.log(data)
+                setSuccess(true);
+            }
+            
         })
      e.preventDefault();
     }
@@ -26,10 +34,11 @@ const AdminPanale = () => {
         <div>
             <h2>Welcome To Admin Dashboard</h2>
             <form onSubmit={handleAdminSubmit}>
-            <TextField  label="Email" type="email" onBlur={handleOnBlur} variant="standard" />
+            <TextField sx={{width:'50%'}}  label="Email" type="email" onBlur={handleOnBlur} variant="standard" />
             <br/>
             <Button style={{marginTop:'20px'}} type="submit" variant="contained">Make Admin</Button>
             </form>
+            {success &&  <Alert severity="success">Made Admin successfully!</Alert>}
         </div>
     );
 };

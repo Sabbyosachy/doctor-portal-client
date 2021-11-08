@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import initializeAuthentication from "../Pages/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword,signInWithPopup,onAuthStateChanged,signOut,signInWithEmailAndPassword,GoogleAuthProvider,updateProfile  } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,signInWithPopup,onAuthStateChanged,signOut,signInWithEmailAndPassword,GoogleAuthProvider,updateProfile,getIdToken  } from "firebase/auth";
 
 initializeAuthentication();
 const useFirebase=()=>{
     const[user,setUser]=useState({});
     const[isLoading,setIsLoading]=useState(true);
     const[authError,setAuthError]=useState('');
+    const[admin,setAdmin]=useState(false);
+    const [token,setToken]=useState('');
     const auth = getAuth();
     const googleprovider = new GoogleAuthProvider();
    //Create account 
@@ -77,12 +79,16 @@ const useFirebase=()=>{
   .finally(()=>setIsLoading(false));
     }
     
-    //obser user state
+    //obser user state uaser login or logout observe
 
     useEffect(()=>{
         const unSubscribe=onAuthStateChanged(auth, (user) => {
             if (user) {
               setUser(user);
+              getIdToken(user)
+              .then(idToken=>{
+                setToken(idToken)
+              })
               
             } else {
              setUser({});
@@ -91,6 +97,14 @@ const useFirebase=()=>{
           });
          return()=> unSubscribe; 
     },[])
+
+    useEffect(()=>{
+        fetch(`http://localhost:5000/users/${user.email}`)
+        .then(res=>res.json())
+        .then(data=>{
+          setAdmin(data.admin)
+        })
+    },[user.email])
 
     const logOut=()=>{
       setIsLoading(true);
@@ -132,7 +146,9 @@ const useFirebase=()=>{
     return{
         user,
         logOut,
+        admin,
         isLoading,
+        token,
         registerUser,
         signInUsingGoogle,
         loginUser,

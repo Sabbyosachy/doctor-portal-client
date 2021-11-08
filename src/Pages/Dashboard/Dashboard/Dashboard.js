@@ -15,11 +15,12 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {BrowserRouter as Router,Switch, Route,Link,useParams,useRouteMatch} from "react-router-dom";
-import { Button } from '@mui/material';
+import {Switch, Route,Link,useRouteMatch} from "react-router-dom";
 import DashboardHome from '../DashboardHome/DashboardHome';
 import AdminPanale from '../AdminPanale/AdminPanale';
 import AddDoctor from '../AddDoctor/AddDoctor';
+import useAuth from '../../../hooks/useAuth';
+import AdminRoute from '../../Shared/AdminRoute/AdminRoute';
 
 
 
@@ -29,6 +30,7 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   let { path, url } = useRouteMatch();
+  const{admin}=useAuth();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -42,9 +44,12 @@ function Dashboard(props) {
       <br/>
       <Link to={`${url}`}>Dashboard</Link>
       <br/>
+     {admin && <Box>
       <Link to={`${url}/adminpanale`}>Admin Panale</Link>
       <br/>
       <Link to={`${url}/adddoctore`}>Add Doctor</Link>
+       </Box>
+       }
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
@@ -128,12 +133,12 @@ function Dashboard(props) {
         <Route exact path={path}>
           <DashboardHome></DashboardHome>
         </Route>
-        <Route path={`${path}/adminpanale`}>
+        <AdminRoute path={`${path}/adminpanale`}>
         <AdminPanale></AdminPanale>
-        </Route>
-        <Route path={`${path}/adddoctore`}>
+        </AdminRoute>
+        <AdminRoute path={`${path}/adddoctore`}>
           <AddDoctor></AddDoctor>
-        </Route>
+        </AdminRoute>
       </Switch>
     </Box>
       
