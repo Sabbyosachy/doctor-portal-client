@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -34,7 +35,7 @@ const Appointments = ({date}) => {
         .then(data=>{
             setAppointments(data)
         })
-    },[date])
+    },[date,token,user.email])
     return (
         <div>
             <h3>Appointments: {appointments.length}</h3>
@@ -59,7 +60,7 @@ const Appointments = ({date}) => {
               </TableCell>
               <TableCell align="right">{row.date}</TableCell>
               <TableCell align="right">{row.serviceName}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.psyment ?'Paid': <Link to={`dashboard/payment/${row._id}`}><button>Pay</button></Link>}</TableCell>
             </TableRow>
           ))}
         </TableBody>

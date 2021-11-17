@@ -35,7 +35,7 @@ const Banner = () => {
        </Box>
         </Grid>
         <Grid style={Verticalalign} item xs={12} md={6}>
-         <img style={{width:400,marginTop:20}} src="https://i.ibb.co/dP9dYsy/chair.png" alt="" srcset="" />
+         <img style={{width:400,marginTop:20}} src="https://i.ibb.co/dP9dYsy/chair.png" alt="" serSet="" />
         </Grid>
       </Grid>
      </Container>

@@ -21,7 +21,7 @@ const style = {
   };
 
 const BookingModal = ({openBooking,handleBookingClose,booking,date,setBooksucc}) => {
-  const{name,time}=booking;
+  const{name,time,price}=booking;
   const{user}=useAuth();
   
   const initialInfo={patientName:user.displayName,email:user.email,phone:''}
@@ -34,6 +34,7 @@ const BookingModal = ({openBooking,handleBookingClose,booking,date,setBooksucc})
     const appointment={
       ...bookingInfo,
       time,
+      price,
       serviceName:name,
       date:date.toLocaleDateString()
     }
@@ -102,6 +103,13 @@ const BookingModal = ({openBooking,handleBookingClose,booking,date,setBooksucc})
           name="email"
           onBlur={handleOnBlur}
           defaultValue={user.email}
+          size="small"
+        />
+         <TextField
+            sx={{width:'80%',m:1,} }
+            disabled
+          id="outlined-size-small"
+          defaultValue={price}
           size="small"
         />
             <TextField

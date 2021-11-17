@@ -26,7 +26,7 @@ const AppointmentHeader = ({date,setDate}) => {
            <Calender date={date} setDate={setDate}></Calender>
            </Grid>
            <Grid style={Verticalalign} item xs={12} md={6}>
-            <img style={{width:600,marginTop:20}} src="https://i.ibb.co/dP9dYsy/chair.png" alt="" srcset="" />
+            <img style={{width:600,marginTop:20}} src="https://i.ibb.co/dP9dYsy/chair.png" alt="" serSet="" />
            </Grid>
          </Grid>
         </Container>

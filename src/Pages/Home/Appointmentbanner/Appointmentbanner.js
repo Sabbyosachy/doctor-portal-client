@@ -17,7 +17,7 @@ const Appointmentbanner = () => {
         <Box style={AppointmentBg} sx={{ flexGrow: 1 ,mt:5}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-         <img style={{width:400,marginTop:'-110px'}} src="https://i.ibb.co/Th3WnD0/doctor.png" alt="" srcset="" />
+         <img style={{width:400,marginTop:'-110px'}} src="https://i.ibb.co/Th3WnD0/doctor.png" alt="" serSet="" />
         </Grid>
         <Grid  item style={{textAlign:'left'}} xs={12} md={6}>
         <Typography sx={{ mb:1,mt:3,color: 'primary.main'} } variant="h6" component="div">

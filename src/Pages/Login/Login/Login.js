@@ -55,7 +55,7 @@ const Login = () => {
   {authError &&  <Alert severity="error">{authError}</Alert>}
   </Grid>
   <Grid item xs={12} md={6}>
-   <img style={{width:'80%',padding:'30px'}} src="https://i.ibb.co/G0sWGsS/login.png" alt="" srcset="" />
+   <img style={{width:'80%',padding:'30px'}} src="https://i.ibb.co/G0sWGsS/login.png" alt="" serSet="" />
   </Grid>
   
 </Grid>
