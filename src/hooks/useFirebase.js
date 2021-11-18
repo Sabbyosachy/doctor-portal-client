@@ -12,12 +12,12 @@ const useFirebase=()=>{
     const auth = getAuth();
     const googleprovider = new GoogleAuthProvider();
    //Create account 
-    const registerUser=(email,password,name,location,history)=>{
+    const registerUser=(email,password,name,location,navigate)=>{
       setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
          const destination=location?.state?.from || '/';
-         history.replace(destination);
+         navigate(destination);
          setAuthError('');
          const newUser={email,displayName:name};
          setUser(newUser);
@@ -34,7 +34,7 @@ const useFirebase=()=>{
         });
         
 
-         history.replace('/');
+         navigate.replace('/');
           })
           .catch((error) => {
             setAuthError(error.message);
@@ -46,13 +46,13 @@ const useFirebase=()=>{
   
     //Login user
     
-    const loginUser=(email,password,location,history)=>{
+    const loginUser=(email,password,location,navigate)=>{
       setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     //to set login to specific location
     const destination=location?.state?.from || '/';
-    history.replace(destination);
+    navigate(destination);
 
     setAuthError('');
   })
@@ -64,7 +64,7 @@ const useFirebase=()=>{
 
     //signin using google
 
-    const signInUsingGoogle=(location,history)=>{
+    const signInUsingGoogle=(location,navigate)=>{
       setIsLoading(true);
       signInWithPopup(auth, googleprovider)
   .then((result) => {
@@ -72,7 +72,7 @@ const useFirebase=()=>{
     putUser(user.email,user.displayName);
     setAuthError('');
     const destination=location?.state?.from || '/';
-    history.replace(destination);
+    navigate(destination);
   }).catch((error) => {
     setAuthError(error.message);
   })
@@ -99,7 +99,7 @@ const useFirebase=()=>{
     },[auth])
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://protected-mesa-07765.herokuapp.com/users/${user.email}`)
         .then(res=>res.json())
         .then(data=>{
           setAdmin(data.admin)
@@ -119,7 +119,7 @@ const useFirebase=()=>{
 
     const saveUser=(email,displayName)=>{
       const user={email,displayName};
-      fetch('http://localhost:5000/users',{
+      fetch('https://protected-mesa-07765.herokuapp.com/users',{
         method:'POST',
         headers:{
           'content-type':'application/json'
@@ -131,7 +131,7 @@ const useFirebase=()=>{
     }
     const putUser=(email,displayName)=>{
       const user={email,displayName};
-      fetch('http://localhost:5000/users',{
+      fetch('https://protected-mesa-07765.herokuapp.com/users',{
         method:'PUT',
         headers:{
           'content-type':'application/json'

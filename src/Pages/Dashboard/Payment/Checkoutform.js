@@ -15,7 +15,7 @@ const Checkoutform = ({appoint}) => {
 
   
    useEffect(()=>{
-        fetch('http://localhost:5000/create-payment-intent',{
+        fetch('https://protected-mesa-07765.herokuapp.com/create-payment-intent',{
           method:'POST',
           headers:{
             'content-type':'application/json'
@@ -82,7 +82,7 @@ const Checkoutform = ({appoint}) => {
           created:paymentIntent.created,
            transection:paymentIntent.client_secret.slice('_secret')[0]
         }
-        const url=`http://localhost:5000/appointments/${_id}`;
+        const url=`https://protected-mesa-07765.herokuapp.com/appointments/${_id}`;
         fetch(url,{
           method:'PUT',
           headers:{

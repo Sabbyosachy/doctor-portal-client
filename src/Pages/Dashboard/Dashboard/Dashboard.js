@@ -15,7 +15,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {Switch, Route,Link,useRouteMatch} from "react-router-dom";
+import {Outlet,Link} from "react-router-dom";
 import DashboardHome from '../DashboardHome/DashboardHome';
 import AdminPanale from '../AdminPanale/AdminPanale';
 import AddDoctor from '../AddDoctor/AddDoctor';
@@ -30,7 +30,6 @@ const drawerWidth = 200;
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  let { path, url } = useRouteMatch();
   const{admin}=useAuth();
 
   const handleDrawerToggle = () => {
@@ -43,12 +42,12 @@ function Dashboard(props) {
       <Divider />
       <Link to='/appointment'>Appointment</Link>
       <br/>
-      <Link to={`${url}`}>Dashboard</Link>
+      <Link to='/dashboard'>Dashboard</Link>
       <br/>
      {admin && <Box>
-      <Link to={`${url}/adminpanale`}>Admin Panale</Link>
+      <Link to={`/dashboard/adminpanale`}>Admin Panale</Link>
       <br/>
-      <Link to={`${url}/adddoctore`}>Add Doctor</Link>
+      <Link to={`/dashboard/adddoctore`}>Add Doctor</Link>
        </Box>
        }
       <List>
@@ -130,20 +129,7 @@ function Dashboard(props) {
       >
         <Toolbar />
        
-        <Switch>
-        <Route exact path={path}>
-          <DashboardHome></DashboardHome>
-        </Route>
-        <Route path={`${path}/payment/:appointmentId`}>
-          <Payment></Payment>
-        </Route>
-        <AdminRoute path={`${path}/adminpanale`}>
-        <AdminPanale></AdminPanale>
-        </AdminRoute>
-        <AdminRoute path={`${path}/adddoctore`}>
-          <AddDoctor></AddDoctor>
-        </AdminRoute>
-      </Switch>
+         <Outlet></Outlet>
     </Box>
       
       </Box>

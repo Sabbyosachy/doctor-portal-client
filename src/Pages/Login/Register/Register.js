@@ -4,14 +4,14 @@ import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
 import { Alert, Button, Container, TextField } from '@mui/material';
 import useAuth from '../../../hooks/useAuth';
-import { useLocation,useHistory } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const Register = () => {
     const[loginData,setLoginData]=useState({});
     const{user,registerUser,isLoading,authError}=useAuth();
     const location = useLocation();
-    const history=useHistory();
+    const navigate=useNavigate();
     const handleOnBlur=e=>{
       const field=e.target.name;
       const value=e.target.value;
@@ -23,7 +23,7 @@ const Register = () => {
 
     const handleRegister=e=>{
         
-      registerUser(loginData.email,loginData.password,loginData.name,location, history);
+      registerUser(loginData.email,loginData.password,loginData.name,location, navigate);
       e.preventDefault();
     }
     return (

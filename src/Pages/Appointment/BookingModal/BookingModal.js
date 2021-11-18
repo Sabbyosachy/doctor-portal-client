@@ -38,7 +38,7 @@ const BookingModal = ({openBooking,handleBookingClose,booking,date,setBooksucc})
       serviceName:name,
       date:date.toLocaleDateString()
     }
-    fetch('http://localhost:5000/appointments',{
+    fetch('https://protected-mesa-07765.herokuapp.com/appointments',{
       method:'POST',
       headers:{
         'content-type':'application/json'
